@@ -251,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.7, y: 17.7, z: -10}
+  m_LocalPosition: {x: -0.14, y: 2.05, z: -10}
   m_LocalScale: {x: 100, y: 100, z: 1.1237}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 1857924879}
-  followSpeed: 2
+  followSpeed: 1
   offset: {x: 0, y: 0, z: -10}
 --- !u!1 &619394800
 GameObject:
@@ -356,6 +356,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1115217356 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8290460371281418106, guid: ffbcc970505a71d47a33291539ec1d1e, type: 3}
+  m_PrefabInstance: {fileID: 4108858037277448995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1172392731
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,8 +578,10 @@ MonoBehaviour:
   paintEraser: {fileID: 1674598114}
   eraserRenderer: {fileID: 1857924878}
   eraserWorldRadius: 0.1
-  eraserPixelRadius: 5
+  eraserPixelRadius: 3
   keyboardSpeed: 3
+  mouseFollowSpeed: 3
+  background: {fileID: 1115217356}
 --- !u!212 &1857924878
 SpriteRenderer:
   m_ObjectHideFlags: 0
