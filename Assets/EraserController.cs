@@ -15,6 +15,8 @@ public class EraserController : MonoBehaviour
     public float eraserWorldRadius = 0.5f; // size in world units
     public int eraserPixelRadius = 20; // size in texture pixels (will be computed too)
     public float keyboardSpeed = 3f;
+    public float mouseFollowSpeed = 5f; // controls smoothness of mouse following
+    public SpriteRenderer background; 
 
     bool isMouseDown = false;
 
@@ -34,8 +36,18 @@ public class EraserController : MonoBehaviour
     {
         Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
-        // follow mouse for immediate prototype
-        transform.position = mouseWorld;
+        
+        transform.position = Vector3.Lerp(transform.position, mouseWorld, mouseFollowSpeed * Time.deltaTime);
+
+        // Clamp inside background borders
+        if (background != null)
+        {
+            Bounds b = background.bounds;
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, b.min.x, b.max.x);
+            pos.y = Mathf.Clamp(pos.y, b.min.y, b.max.y);
+            transform.position = pos;
+        }
 
         if (Input.GetMouseButtonDown(0)) isMouseDown = true;
         if (Input.GetMouseButtonUp(0)) isMouseDown = false;
