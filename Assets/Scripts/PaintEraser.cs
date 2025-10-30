@@ -10,6 +10,7 @@ public class PaintEraser : MonoBehaviour
     public SpriteRenderer overlayRenderer;
     Texture2D writableTexture;
     Color[] clearColorsBuffer; // reused buffer for performance
+    public float fadePerScrub = 0.5f;
 
     void Awake()
     {
@@ -86,9 +87,10 @@ public class PaintEraser : MonoBehaviour
 
                 if (distSq <= radius * radius)
                 {
-                    // set alpha to 0 (transparent)
                     Color c = pixels[ri];
-                    c.a = 0f;
+                    float distanceFactor = 1f - Mathf.Sqrt(distSq) / radius; // 1 at center → 0 at edge
+                    float fadeAmount = fadePerScrub * distanceFactor;
+                    c.a = Mathf.Max(0f, c.a - fadeAmount);
                     pixels[ri] = c;
                 }
             }
