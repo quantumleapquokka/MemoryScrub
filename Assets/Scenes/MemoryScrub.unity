@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -537,6 +538,22 @@ MonoBehaviour:
   target: {fileID: 754115336}
   followSpeed: 2
   offset: {x: 0, y: 0, z: -10}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3a97c3bdb815f479a2d37f3e79268f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  zoomedOutSize: 60
+  moveSpeed: 2
+  zoomSpeed: 2
+  backgroundCenter: {fileID: 2000267287}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +681,7 @@ MonoBehaviour:
   keyboardSpeed: 3
   mouseFollowSpeed: 2
   background: {fileID: 729312843}
+  isActive: 1
 --- !u!212 &754115335
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1224,6 +1242,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317448716}
   m_CullTransparentMesh: 1
+--- !u!114 &1455468375 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2049310150978453515, guid: eb6fbf5e7231e90459bd4fa64971cb71, type: 3}
+  m_PrefabInstance: {fileID: 7196250521916419182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1674598113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1264,7 @@ GameObject:
   - component: {fileID: 1674598116}
   - component: {fileID: 1674598115}
   - component: {fileID: 1674598114}
+  - component: {fileID: 1674598117}
   m_Layer: 0
   m_Name: Overlay
   m_TagString: Untagged
@@ -1256,6 +1286,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PaintEraser
   overlayRenderer: {fileID: 1674598115}
   fadePerScrub: 0.5
+  erasedThreshold: 0.2
+  eraseComplete: 0
 --- !u!212 &1674598115
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1329,10 +1361,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1674598117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674598113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3307f6229a7eed54c94f435908617b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HiddenMessageController
+  canvasRect: {fileID: 1678363628}
+  words:
+  - {fileID: 1455468375}
+  - {fileID: 1317448718}
+  - {fileID: 926622968}
+  - {fileID: 234200842}
+  - {fileID: 968713336}
+  verticalSpacing: 20
 --- !u!224 &1678363628 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5075057332493849150, guid: eb6fbf5e7231e90459bd4fa64971cb71, type: 3}
   m_PrefabInstance: {fileID: 7196250521916419182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2000267287 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7572961247438399842, guid: ffbcc970505a71d47a33291539ec1d1e, type: 3}
+  m_PrefabInstance: {fileID: 4108858037277448995}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4108858037277448995
 PrefabInstance:

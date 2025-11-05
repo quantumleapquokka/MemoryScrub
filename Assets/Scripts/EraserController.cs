@@ -16,7 +16,9 @@ public class EraserController : MonoBehaviour
     public int eraserPixelRadius = 20; // size in texture pixels (will be computed too)
     public float keyboardSpeed = 3f;
     public float mouseFollowSpeed = 5f; // controls smoothness of mouse following
-    public SpriteRenderer background; 
+    public SpriteRenderer background;
+
+    public bool isActive = true;
 
     bool isMouseDown = false;
 
@@ -28,6 +30,7 @@ public class EraserController : MonoBehaviour
 
     void Update()
     {
+        if (!isActive) return;
         HandleMouseInput();
         HandleKeyboardInput();
     }
@@ -96,5 +99,10 @@ public class EraserController : MonoBehaviour
         {
             paintEraser.EraseAtPixel(pixel, eraserPixelRadius);
         }
+    }
+
+    public void DisableInput()
+    {
+        isActive = false;
     }
 }

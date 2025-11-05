@@ -12,6 +12,10 @@ public class PaintEraser : MonoBehaviour
     Color[] clearColorsBuffer; // reused buffer for performance
     public float fadePerScrub = 0.5f;
 
+    [Header("Erase Tracking")]
+    public float erasedThreshold = 0.9f; // 90% erased
+    public bool eraseComplete = false;
+
     void Awake()
     {
         if (overlayRenderer == null) overlayRenderer = GetComponent<SpriteRenderer>();
@@ -98,6 +102,31 @@ public class PaintEraser : MonoBehaviour
 
         writableTexture.SetPixels(startX, startY, w, h, pixels);
         writableTexture.Apply(false); // no mipmaps
+        float erasedPercent = GetErasedPercent();
+
+        if (!eraseComplete && erasedPercent >= erasedThreshold)
+        {
+            eraseComplete = true;
+            OnFullyErased();
+        }
+
+    }
+
+    public float GetErasedPercent()
+    {
+        if (writableTexture == null) return 0f;
+
+        Color[] pixels = writableTexture.GetPixels();
+        int total = pixels.Length;
+        int erasedCount = 0;
+
+        for (int i = 0; i < total; i++)
+        {
+            if (pixels[i].a <= 0.05f) // almost transparent
+                erasedCount++;
+        }
+
+        return (float)erasedCount / total;
     }
 
     // Helper: convert world position to texture pixel coordinates relative to overlay sprite
@@ -126,4 +155,27 @@ public class PaintEraser : MonoBehaviour
 
         return new Vector2(pixelX, pixelY);
     }
+
+    void OnFullyErased()
+    {
+        Debug.Log("Overlay fully erased!");
+        var eraser = FindAnyObjectByType<EraserController>();
+        if (eraser != null)
+            eraser.DisableInput();
+        overlayRenderer.enabled = false;
+
+        HiddenMessageController msg = FindFirstObjectByType<HiddenMessageController>();
+        if (msg != null)
+            msg.RevealWords();
+
+        CameraFollow camFollow = FindFirstObjectByType<CameraFollow>();
+        if (camFollow != null)
+            camFollow.enabled = false;
+
+        // Zoom camera to background
+        CameraController camController = FindFirstObjectByType<CameraController>();
+        if (camController != null)
+            camController.ZoomToBackground();
+    }
+
 }
